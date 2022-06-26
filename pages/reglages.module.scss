@@ -1,0 +1,85 @@
+.mainContainer{
+    width: 100%!important;
+    background :white;
+    padding:3%;
+    display:flex;
+    flex-direction:column;
+    .soulignBar{
+    margin-bottom: 4rem;
+    }
+
+}
+
+.inputWrapper{
+ width: 100%;
+ padding:2% 0%;
+ display:flex;
+ align-items: center;
+ flex-wrap: wrap !important;
+//  justify-content: space-between;
+ .inptbloc{
+    width:20%;
+  margin-right: 50px;
+  
+ }
+ input, textarea, .inptSelect{
+    padding:10px;
+    width:100%;
+     border : solid 0.2px #c5c5c5 ;
+     outline:none;
+ }
+ .iptFile{
+     margin-right: 1rem;
+     margin-top: 1rem;
+ }
+}
+
+.RestaurantAdress{
+    margin-top:2rem;
+}
+
+.submitee{
+    display: flex;
+    justify-content:space-between;
+    border-top : 1px solid black;
+    padding-top:1rem;
+   
+    .radioContainer{
+        width:45%;
+        display: flex;
+        align-items: center;
+        justify-content:space-between;
+    }
+    button{
+        border : none;
+        padding:1rem 2rem;
+        background-color:rgb(247, 148, 29);
+        color :white;
+    }
+}
+.deepInpt{
+    display:none;
+}
+
+.iconeDisplayed{
+    font-size:2rem;
+    color: green;display:block;
+    float:right;
+    &:hover{
+        cursor: pointer;
+    }
+}
+.iconeUndisplayed{
+    display : none;
+}
+.redIcon{
+    color :red;
+    font-size:2rem;
+    &:hover{
+        cursor: pointer;
+    }
+}
+.imgPreview{
+    width : 30rem;
+    height : 15rem;
+}
