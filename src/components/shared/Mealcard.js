@@ -1,4 +1,4 @@
-import styles from "./mealCard.module.scss";
+import styles from "./mealcard.module.scss";
 import Image from "next/image";
 
 const MealCard = () => {
