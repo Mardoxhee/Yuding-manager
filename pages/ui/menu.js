@@ -1,23 +1,41 @@
-import {
-  Row,
-  Col,
-  Card,
-  CardBody,
-  CardTitle,
-  Breadcrumb,
-  BreadcrumbItem,
-} from "reactstrap";
 import { useState, useEffect } from "react";
 import styles from "./menu.module.scss";
 import MealCard from "./../../src/components/shared/Mealcard";
 import Link from "next/link";
+import authHeader from "./../../src/services/authHeader";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 const Menu = () => {
   const [meals, setMeals] = useState([]);
 
+  const schema = yup.object().shape({
+    title: yup.string().required("a meal has to have imperativly a name"),
+    description: yup.string().min(20).max(80).required(),
+    mealType: yup.string(),
+    picture: yup.string().required("please update a picture"),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const getMeals = async () => {
     try {
-      const url = "https://yuding.herokuapp.com/meals";
+      const url = "http://127.0.0.1:3000/meals/by-account";
+      const requestoptions = {
+        method: "GET",
+        headers: authHeader(),
+      };
+      const response = await fetch(url, requestoptions);
+      const jsonMeal = await response.json();
+      setMeals(jsonMeal);
+      console.log("response from meals", meals);
     } catch (error) {
       console.log(error.message);
     }
@@ -25,6 +43,7 @@ const Menu = () => {
 
   useEffect(() => {
     getMeals();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className={styles.mainWrapper}>
@@ -59,11 +78,27 @@ const Menu = () => {
         </div>
         <form className={styles.mealCreation}>
           <h4>Création de met</h4>
-          <input type="text" placeholder="nom du met"></input>
-          <input type="text" placeholder="description du met"></input>
-          <input type="number" placeholder="prix du met en $"></input>
-          <input type="file" placeholder="photo"></input>
-          <button>Créer le met</button>
+          <input
+            type="text"
+            placeholder="nom du met"
+            {...register("title", { required: true })}
+          ></input>
+          <input
+            type="text"
+            placeholder="description du met"
+            {...register("description", { required: true })}
+          ></input>
+          <input
+            type="number"
+            placeholder="prix du met en $"
+            {...register("price", { required: true })}
+          ></input>
+          <input
+            type="file"
+            placeholder="photo"
+            {...register("picture", { required: true })}
+          ></input>
+          <button type="submit">Créer le met</button>
         </form>
       </div>
     </div>

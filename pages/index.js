@@ -14,24 +14,31 @@ import Image from "next/image";
 export default function Home() {
   const [restaurantObject, setRestaurantObject] = useState({});
   const [restaurantId, setRestaurantId] = useState("");
-  const [reservations, setReservations] = useState([]);
+  // const [reservations, setReservations] = useState([]);
 
-  const router = useRouter();
+  const reservationsArray = [];
 
-  const {
-    query: { userInfo },
-  } = router;
-  const dataFromUrl = userInfo;
+  // const router = useRouter();
+
+  // const {
+  //   query: { userInfo },
+  // } = router;
+  // const dataFromUrl = userInfo;
+
+  // const getToken = async () => {
+  //   userInfo
+  //     ? localStorage.setItem("user", dataFromUrl)
+  //     : console.log("nothing");
+  // };
 
   const getRestaurantInfo = async () => {
     try {
-      const url = "https://yuding.herokuapp.com/restaurants/by-account";
+      const url = "https://yuding-platform.onrender.com/restaurants/by-account";
       const requestoptions = {
         method: "GET",
         headers: authHeader(),
       };
       const response = await fetch(url, requestoptions);
-      // console.log("results", response);
       if (response.status === 401) {
         // Router.push({
         //   pathname: "http://localhost:8081/Login",
@@ -47,7 +54,8 @@ export default function Home() {
           setRestaurantId(idResto);
         } else if (taille === 0) {
           Router.push({
-            pathname: "http://localhost:8081/CreationRestaurant",
+            pathname:
+              "https://yuding-client-mardoxhee.vercel.app/CreationRestaurant",
           });
         }
       }
@@ -58,24 +66,27 @@ export default function Home() {
 
   const getReservations = async () => {
     try {
-      const url = `https://yuding.herokuapp.com/reservations/all?restaurant=${restaurantId}`;
+      const url = `https://yuding-platform.onrender.com/by-account?restaurant=${restaurantId}`;
       const requestoptions = {
         method: "GET",
-        // headers: authHeader(),
+        headers: authHeader(),
       };
       const response = await fetch(url, requestoptions);
+      console.log("response", response);
       const datawithreservation = await response.json();
       const reservationsData = datawithreservation.data.reservations;
-      setReservations(reservationsData);
+      // setReservations(reservationsData);
+      reservationsArray.push(reservationsData);
     } catch (error) {
       console.log({ error });
     }
   };
   useEffect(() => {
+    // getToken();
     getRestaurantInfo();
     getReservations();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [restaurantId, dataFromUrl]);
+  }, [restaurantId]);
 
   return (
     <div>
@@ -98,7 +109,11 @@ export default function Home() {
               bg="bg-light-success text-success"
               title="Profit"
               subtitle="Réservations en cours"
-              earning={reservations ? JSON.stringify(reservations.length) : "0"}
+              earning={
+                reservationsArray
+                  ? JSON.stringify(reservationsArray.length)
+                  : "0"
+              }
               icon="bi bi-wallet"
             />
           </Col>
@@ -107,7 +122,7 @@ export default function Home() {
 
         <Row>
           <Col sm="12" lg="6" xl="7" xxl="12">
-            <ReservationsTable reservations={reservations} />
+            <ReservationsTable reservations={reservationsArray} />
           </Col>
           {/* <Col sm="12" lg="6" xl="5" xxl="4">
             <Feeds />

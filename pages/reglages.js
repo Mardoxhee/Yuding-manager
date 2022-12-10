@@ -35,10 +35,11 @@ const Reglages = () => {
 
   const getRestaurantInfo = async () => {
     try {
-      const url = "http://localhost:3000/restaurants/by-account";
+      const url = "https://yuding.herokuapp.com/restaurants/by-account";
       const requestoptions = {
         method: "GET",
         headers: authHeader(),
+        // headers: "",
       };
       const response = await fetch(url, requestoptions);
       console.log("results", response);
@@ -83,7 +84,7 @@ const Reglages = () => {
       };
       console.log("id reto", restaurantId);
       console.log("body", requestoptions.body);
-      const url = `http://127.0.0.1:3000/restaurants/${restaurantId}`;
+      const url = `https://yuding.herokuapp.com/restaurants/${restaurantId}`;
       const response = await fetch(url, requestoptions);
       console.log("responsePatch", response);
     } catch (error) {
@@ -204,11 +205,11 @@ const Reglages = () => {
             <input
               type="text"
               placeholder="Commune"
-              defaultValue={
-                restaurantObject.adress
-                  ? restaurantObject.adress[0].township
-                  : ""
-              }
+              // defaultValue={
+              //   restaurantObject.adress
+              //     ? restaurantObject.adress[0].township
+              //     : ""
+              // }
               // {...register("adress[0].township")}
             ></input>
           </div>
@@ -217,9 +218,9 @@ const Reglages = () => {
             <input
               type="text"
               placeholder="Quartier"
-              defaultValue={
-                restaurantObject.adress ? restaurantObject.adress[0].quater : ""
-              }
+              // defaultValue={
+              //   restaurantObject.adress ? restaurantObject.adress[0].quater : ""
+              // }
               // {...register("adress[0].quater")}
             ></input>
           </div>
@@ -228,9 +229,9 @@ const Reglages = () => {
             <input
               type="text"
               placeholder="Avenue"
-              defaultValue={
-                restaurantObject.adress ? restaurantObject.adress[0].street : ""
-              }
+              // defaultValue={
+              //   restaurantObject.adress ? restaurantObject.adress[0].street : ""
+              // }
               // {...register("adress[0].street")}
             ></input>
           </div>
@@ -239,9 +240,9 @@ const Reglages = () => {
             <input
               type="number"
               placeholder="Numéro"
-              defaultValue={
-                restaurantObject.adress ? restaurantObject.adress[0].number : ""
-              }
+              // defaultValue={
+              //   restaurantObject.adress ? restaurantObject.adress[0].number : ""
+              // }
               // {...register("adress.number")}
             ></input>
           </div>
