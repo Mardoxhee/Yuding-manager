@@ -36,10 +36,12 @@ const Header = ({ showMobmenu }) => {
   const {
     query: { userInfo },
   } = router;
-  const dataFromUrl = userInfo;
+  const dataFromUrl = JSON.stringify(userInfo);
 
   const getToken = async () => {
-    userInfo ? localStorage.setItem("user", userInfo) : console.log("nothing");
+    userInfo
+      ? localStorage.setItem("user", dataFromUrl)
+      : console.log("nothing");
   };
 
   const tokenChek = async () => {
@@ -62,7 +64,8 @@ const Header = ({ showMobmenu }) => {
         const jsonData = await response.json();
         if (jsonData.restaurant.length === 0) {
           Router.push({
-            pathname: "http://localhost:8081/Creationrestaurant",
+            pathname:
+              "https://yuding-client-mardoxhee.vercel.app/Creationrestaurant",
           });
         }
       }
@@ -72,7 +75,7 @@ const Header = ({ showMobmenu }) => {
   };
 
   const handleLogout = () => {
-    localStorage.setItem("user", null);
+    localStorage.removeItem("user");
     Router.push({
       pathname: "http://localhost:8081/Login",
     });
