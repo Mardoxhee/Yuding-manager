@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.4.1",
+    "@cloudinary/url-gen": "^1.8.0",
     "@date-io/date-fns": "^2.14.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@hookform/resolvers": "^2.9.3",
     "@iconify/react": "^3.2.2",
     "@mui/lab": "^5.0.0-alpha.84",
     "@mui/material": "^5.8.1",
@@ -26,12 +29,13 @@
     "react-apexcharts": "^1.4.0",
     "react-dom": "17.0.2",
     "react-feather": "^2.0.9",
-    "react-hook-form": "^7.31.3",
+    "react-hook-form": "^7.33.0",
     "react-redux": "^7.2.6",
     "reactstrap": "^9.0.1",
     "sass": "^1.45.1",
     "simplebar-react": "^2.3.6",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "eslint": "8.5.0",
