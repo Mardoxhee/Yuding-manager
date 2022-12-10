@@ -17,6 +17,8 @@ export default function Home() {
   // const [reservations, setReservations] = useState([]);
 
   const reservationsArray = [];
+  const infosArray = [];
+  const restoId = [];
 
   // const router = useRouter();
 
@@ -50,12 +52,13 @@ export default function Home() {
         if (taille !== 0) {
           const restaurantData = jsonData.restaurant[0];
           setRestaurantObject(restaurantData);
+          infosArray.push(restaurantData);
           const idResto = restaurantData._id;
           setRestaurantId(idResto);
+          restoId.push(idResto);
         } else if (taille === 0) {
           Router.push({
-            pathname:
-              "https://yuding-client-mardoxhee.vercel.app/CreationRestaurant",
+            pathname: "https://yuding-client.vercel.app/CreationRestaurant",
           });
         }
       }
@@ -66,7 +69,9 @@ export default function Home() {
 
   const getReservations = async () => {
     try {
-      const url = `https://yuding-platform.onrender.com/by-account?restaurant=${restaurantId}`;
+      const url = `https://yuding-platform.onrender.com/by-account?restaurant=${
+        restoId ? restoId[0] : ""
+      }`;
       const requestoptions = {
         method: "GET",
         headers: authHeader(),
@@ -99,7 +104,7 @@ export default function Home() {
         <Row>
           <div className={styles.bannerContainer}>
             <div className={styles.textSide}>
-              <h1>Bienvenue au restaurant {restaurantObject.restaurantName}</h1>
+              <h1>Bienvenue au restaurant {infosArray[0].restaurantName}</h1>
               <p>Administrez vos activité depuis cette interface</p>
             </div>
             <div className={styles.imageSide}></div>
